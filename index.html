@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStartup - Landing Page | Tailwind CSS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out infinite 2s',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient-shift': 'gradient-shift 8s ease infinite',
+                        'particle-float': 'particle-float 20s linear infinite',
+                        'slide-in': 'slide-in 0.8s ease-out forwards',
+                        'fade-up': 'fade-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'gradient-shift': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        'particle-float': {
+                            '0%': { transform: 'translateY(100vh) translateX(-50px)' },
+                            '100%': { transform: 'translateY(-100px) translateX(50px)' },
+                        },
+                        'slide-in': {
+                            'from': { opacity: '0', transform: 'translateX(-50px)' },
+                            'to': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        'fade-up': {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Efectos futuristas mejorados */
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gradient-shift 4s ease infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            background-size: 200% 200%;
+            animation: gradient-shift 8s ease infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Efectos de partículas futuristas */
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        /* Efectos de borde animado */
+        .border-glow {
+            border: 1px solid transparent;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box,
+                      linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7) border-box;
+        }
+        
+        /* Animaciones de entrada */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Efectos hover 3D */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #6366f1, #a855f7);
+            border-radius: 4px;
+        }
+        
+        /* Responsive optimizado */
+        @media (max-width: 640px) {
+            .mobile-stack {
+                flex-direction: column !important;
+            }
+            
+            .mobile-full {
+                width: 100% !important;
+            }
+            
+            .mobile-text-center {
+                text-align: center !important;
+            }
+            
+            .mobile-p-4 {
+                padding: 1rem !important;
+            }
+        }
+        
+        /* Mejoras de accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            .gradient-text,
+            .gradient-bg,
+            .particle {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-100 font-sans overflow-x-hidden">
+    <!-- Navbar Mejorada -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 glass-effect transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo con efecto hover -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white text-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">
+                        <i class="bi bi-rocket-takeoff"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-primary-300 bg-clip-text text-transparent">
+                        TechStartup<span class="text-primary-400">.ai</span>
+                    </span>
+                </a>
+                
+                <!-- Navegación Desktop -->
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#" class="text-slate-300 hover:text-white transition-colors font-medium relative group">
+                        <span class="relative">
+                            Inicio
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-purple-500 group-hover:w-full transition-all duration-300"></span>
+                        </span>
+                    </a>
+                    <a href="#features" class="text-slate-400 hover:text-white transition-colors font-medium relative group">
+                        <span class="relative">
+                            Características
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-purple-500 group-hover:w-full transition-all duration-300"></span>
+                        </span>
+                    </a>
+                    <a href="#demo" class="text-slate-400 hover:text-white transition-colors font-medium relative group">
+                        <span class="relative">
+                            Demo IA
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-purple-500 group-hover:w-full transition-all duration-300"></span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Botones CTA -->
+                <div class="flex items-center gap-3">
+                    <a href="#" class="px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        Iniciar Sesión
+                    </a>
+                    <a href="#demo" class="px-4 py-2 text-sm font-medium text-white gradient-bg rounded-lg hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300 flex items-center gap-2 hover:-translate-y-0.5">
+                        Probar Gratis
+                        <i class="bi bi-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Menú Móvil -->
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-slate-400 hover:text-white transition-colors">
+                    <i class="bi bi-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Mejorada -->
+    <section class="min-h-screen relative flex items-center overflow-hidden pt-16">
+        <!-- Efectos de partículas -->
+        <div class="particles-container" id="particles"></div>
+        
+        <!-- Formas de fondo animadas -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-48 -right-24 w-[600px] h-[600px] bg-primary-500/20 rounded-full blur-[100px] animate-float"></div>
+            <div class="absolute -bottom-48 -left-24 w-[500px] h-[500px] bg-purple-500/15 rounded-full blur-[100px] animate-float-delayed"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Contenido Principal -->
+                <div class="scroll-animate">
+                    <!-- Badge de novedad -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500/20 to-purple-500/20 border border-primary-500/30 rounded-full text-sm text-slate-300 mb-8 group hover:scale-105 transition-all duration-300 cursor-pointer">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                        </span>
+                        <span>✨ Lanzamiento IA 3.0 - Revoluciona tu negocio</span>
+                        <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                    
+                    <!-- Título principal -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
+                        <span class="block text-white">Inteligencia Artificial</span>
+                        <span class="gradient-text block">Para el Futuro</span>
+                        <span class="block text-white text-2xl sm:text-3xl lg:text-4xl mt-4">Automatización • Análisis • Escalabilidad</span>
+                    </h1>
+                    
+                    <!-- Descripción -->
+                    <p class="text-lg text-slate-300 mb-8 max-w-xl">
+                        Transforma tu empresa con nuestra plataforma de IA que aprende, optimiza y escala automáticamente. 
+                        <span class="text-primary-300 font-semibold">+450% ROI promedio</span> en los primeros 90 días.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <a href="#demo" class="px-6 py-4 text-white gradient-bg rounded-xl font-semibold hover:shadow-2xl hover:shadow-primary-500/40 transition-all duration-300 hover:-translate-y-1 flex items-center gap-3 group">
+                            <i class="bi bi-play-circle text-xl"></i>
+                            <span>Demo Interactiva</span>
+                            <i class="bi bi-arrow-right text-xs group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                        <a href="#features" class="px-6 py-4 text-white glass-card rounded-xl font-semibold hover:bg-white/5 transition-all duration-300 flex items-center gap-3 group">
+                            <i class="bi bi-stars"></i>
+                            <span>Características IA</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Métricas en tiempo real -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 pt-8 border-t border-white/10">
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white mb-1">+2.5K</div>
+                            <div class="text-xs text-slate-400">Empresas</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white mb-1">99.8%</div>
+                            <div class="text-xs text-slate-400">Satisfacción</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white mb-1">24/7</div>
+                            <div class="text-xs text-slate-400">Soporte IA</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl font-bold text-white mb-1">3.2s</div>
+                            <div class="text-xs text-slate-400">Respuesta</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Futurista -->
+                <div class="scroll-animate" style="transition-delay: 200ms">
+                    <div class="relative">
+                        <!-- Tarjeta principal -->
+                        <div class="glass-card rounded-2xl overflow-hidden shadow-2xl border-glow transform transition-all duration-500 hover:shadow-primary-500/20">
+                            <!-- Header del dashboard -->
+                            <div class="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-dark-800/50 to-dark-900/50 border-b border-white/5">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+                                        <span class="w-3 h-3 rounded-full bg-yellow-500 animate-pulse"></span>
+                                        <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
+                                    </div>
+                                    <span class="text-sm text-slate-500 font-medium">Dashboard IA - Tiempo Real</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                    </span>
+                                    <span class="text-green-400">Conectado</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido del dashboard -->
+                            <div class="p-6">
+                                <!-- Grid de estadísticas -->
+                                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                                    <div class="p-4 bg-dark-900/30 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300">
+                                        <div class="text-2xl font-bold text-white mb-1">$48.2K</div>
+                                        <div class="text-xs text-slate-500 flex items-center justify-between">
+                                            <span>Ingresos</span>
+                                            <span class="text-green-500 flex items-center gap-1">
+                                                <i class="bi bi-arrow-up"></i> 12%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-dark-900/30 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300">
+                                        <div class="text-2xl font-bold text-white mb-1">2,847</div>
+                                        <div class="text-xs text-slate-500 flex items-center justify-between">
+                                            <span>Usuarios Activos</span>
+                                            <span class="text-green-500 flex items-center gap-1">
+                                                <i class="bi bi-arrow-up"></i> 8%
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-dark-900/30 rounded-xl border border-white/5 hover:border-primary-500/30 transition-all duration-300 col-span-2 lg:col-span-1">
+                                        <div class="text-2xl font-bold text-white mb-1">94.2%</div>
+                                        <div class="text-xs text-slate-500 flex items-center justify-between">
+                                            <span>Retención</span>
+                                            <span class="text-green-500 flex items-center gap-1">
+                                                <i class="bi bi-arrow-up"></i> 3%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Gráfico animado -->
+                                <div class="relative h-32 bg-dark-900/20 rounded-xl p-4 mb-4">
+                                    <!-- Líneas de la grilla -->
+                                    <div class="absolute inset-0 flex flex-col justify-between p-4">
+                                        <div class="border-t border-white/5"></div>
+                                        <div class="border-t border-white/5"></div>
+                                        <div class="border-t border-white/5"></div>
+                                        <div class="border-t border-white/5"></div>
+                                    </div>
+                                    
+                                    <!-- Línea del gráfico -->
+                                    <svg viewBox="0 0 400 100" class="w-full h-full">
+                                        <defs>
+                                            <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
+                                                <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path d="M0,80 Q50,60 100,65 T200,40 T300,50 T400,20 L400,100 L0,100 Z" 
+                                              fill="url(#chartGradient)" 
+                                              class="chart-gradient"/>
+                                        <path d="M0,80 Q50,60 100,65 T200,40 T300,50 T400,20" 
+                                              fill="none" 
+                                              stroke="#6366f1" 
+                                              stroke-width="3" 
+                                              stroke-linecap="round"/>
+                                        
+                                        <!-- Puntos animados -->
+                                        <circle cx="0" cy="80" r="4" fill="#6366f1">
+                                            <animate attributeName="cy" from="80" to="80" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="100" cy="65" r="4" fill="#6366f1">
+                                            <animate attributeName="cy" from="65" to="65" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="200" cy="40" r="4" fill="#6366f1">
+                                            <animate attributeName="cy" from="40" to="40" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="300" cy="50" r="4" fill="#6366f1">
+                                            <animate attributeName="cy" from="50" to="50" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="400" cy="20" r="4" fill="#6366f1">
+                                            <animate attributeName="cy" from="20" to="20" dur="1s" repeatCount="indefinite"/>
+                                        </circle>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Predicción IA -->
+                                <div class="flex items-center justify-between text-sm p-3 bg-gradient-to-r from-primary-500/10 to-purple-500/10 rounded-lg border border-primary-500/20">
+                                    <div class="flex items-center gap-2">
+                                        <i class="bi bi-robot text-primary-400"></i>
+                                        <span class="text-slate-300">Predicción IA:</span>
+                                    </div>
+                                    <span class="text-green-400 font-semibold">+18.4% próxima semana</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tarjetas flotantes -->
+                        <div class="absolute -top-6 -right-6 bg-gradient-to-br from-primary-500 to-purple-500 rounded-2xl p-4 shadow-2xl animate-float hidden lg:block">
+                            <div class="text-center text-white">
+                                <div class="text-2xl font-bold">AI</div>
+                                <div class="text-xs opacity-80">Powered</div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute -bottom-6 -left-6 bg-dark-800 rounded-2xl p-4 border border-white/10 shadow-xl animate-float-delayed hidden lg:block">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
+                                    <i class="bi bi-lightning-charge text-primary-400"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500">Velocidad</div>
+                                    <div class="text-sm font-bold text-white">3.2ms</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Indicador de scroll mejorado -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <div class="w-6 h-10 border-2 border-primary-500/50 rounded-full relative">
+                <div class="w-1 h-3 bg-primary-400 rounded-full absolute top-2 left-1/2 -translate-x-1/2 animate-bounce"></div>
+            </div>
+            <span class="text-xs text-primary-300 mt-2 animate-pulse">Explorar</span>
+        </div>
+    </section>
+
+    <!-- Sección de Características IA -->
+    <section id="features" class="py-20 bg-gradient-to-b from-dark-800 to-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-animate">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/10 border border-primary-500/20 rounded-full text-sm text-primary-300 mb-6">
+                    <i class="bi bi-stars"></i>
+                    <span>Tecnología de Vanguardia</span>
+                </div>
+                
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                    Potenciado por
+                    <span class="gradient-text">IA Avanzada</span>
+                </h2>
+                
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                    Características diseñadas para transformar completamente tu flujo de trabajo
+                </p>
+            </div>
+            
+            <!-- Grid de características -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Característica 1 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Procesamiento IA</h3>
+                    <p class="text-slate-400 mb-4">
+                        Análisis predictivo en tiempo real con algoritmos de aprendizaje automático.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>95% precisión</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Característica 2 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500" style="transition-delay: 100ms">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Seguridad Cuántica</h3>
+                    <p class="text-slate-400 mb-4">
+                        Encriptación de nivel militar con protección contra amenazas futuras.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>99.99% seguro</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Característica 3 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500" style="transition-delay: 200ms">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Escalado Automático</h3>
+                    <p class="text-slate-400 mb-4">
+                        Infraestructura que se adapta automáticamente a tu crecimiento.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>Sin límites</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Característica 4 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500" style="transition-delay: 300ms">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Automatización Total</h3>
+                    <p class="text-slate-400 mb-4">
+                        Flujos de trabajo automatizados que aprenden de cada interacción.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>24/7 activo</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Característica 5 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500" style="transition-delay: 400ms">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-database"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Integración Inteligente</h3>
+                    <p class="text-slate-400 mb-4">
+                        Conexión perfecta con todas tus herramientas y plataformas.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>500+ APIs</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Característica 6 -->
+                <div class="scroll-animate glass-card rounded-2xl p-6 card-3d hover:border-primary-500/30 transition-all duration-500" style="transition-delay: 500ms">
+                    <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center text-2xl text-white mb-4">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Análisis en Vivo</h3>
+                    <p class="text-slate-400 mb-4">
+                        Dashboard en tiempo real con insights accionables y predicciones.
+                    </p>
+                    <div class="flex items-center text-primary-400 text-sm">
+                        <span>Tiempo real</span>
+                        <i class="bi bi-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Interactiva -->
+    <section id="demo" class="py-20 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Contenido de la demo -->
+                <div class="scroll-animate">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full text-sm text-green-300 mb-6">
+                        <i class="bi bi-play-circle"></i>
+                        <span>Demo Interactiva</span>
+                    </div>
+                    
+                    <h3 class="text-3xl sm:text-4xl font-bold mb-6">
+                        <span class="text-white">Simula tu</span>
+                        <span class="gradient-text block">Crecimiento</span>
+                    </h3>
+                    
+                    <p class="text-lg text-slate-300 mb-8">
+                        Descubre cómo nuestra plataforma puede transformar tu negocio. 
+                        Ajusta los parámetros y observa el impacto en tiempo real.
+                    </p>
+                    
+                    <!-- Estadísticas de la demo -->
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="p-4 bg-dark-800/50 rounded-xl border border-white/5">
+                            <div class="text-2xl font-bold text-white mb-1" id="roiValue">312%</div>
+                            <div class="text-sm text-slate-400">ROI Estimado</div>
+                        </div>
+                        <div class="p-4 bg-dark-800/50 rounded-xl border border-white/5">
+                            <div class="text-2xl font-bold text-white mb-1" id="timeValue">3.2s</div>
+                            <div class="text-sm text-slate-400">Tiempo Ahorrado</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Panel de control interactivo -->
+                <div class="scroll-animate" style="transition-delay: 200ms">
+                    <div class="glass-card rounded-2xl p-6">
+                        <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <i class="bi bi-sliders text-primary-400"></i>
+                            Simulador de Crecimiento
+                        </h4>
+                        
+                        <!-- Control deslizante -->
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <label class="text-slate-300">Inversión Mensual</label>
+                                <span class="text-primary-400 font-bold" id="investmentValue">$15,000</span>
+                            </div>
+                            <input type="range" 
+                                   min="1000" 
+                                   max="50000" 
+                                   value="15000" 
+                                   step="1000"
+                                   class="w-full h-2 bg-dark-700 rounded-lg appearance-none cursor-pointer slider"
+                                   id="investmentSlider">
+                            <div class="flex justify-between text-xs text-slate-500 mt-2">
+                                <span>$1K</span>
+                                <span>$25K</span>
+                                <span>$50K</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Barra de progreso de ROI -->
+                        <div class="mb-6">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-slate-300">ROI Estimado</span>
+                                <span class="text-green-400 font-bold" id="roiPercentage">312%</span>
+                            </div>
+                            <div class="h-3 bg-dark-700 rounded-full overflow-hidden">
+                                <div id="roiBar" class="h-full bg-gradient-to-r from-green-500 to-primary-500 rounded-full transition-all duration-500" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Métricas calculadas -->
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="text-center p-4 bg-dark-800/30 rounded-lg">
+                                <div class="text-2xl font-bold text-white mb-1" id="usersValue">2,847</div>
+                                <div class="text-xs text-slate-400">Usuarios Potenciales</div>
+                            </div>
+                            <div class="text-center p-4 bg-dark-800/30 rounded-lg">
+                                <div class="text-2xl font-bold text-white mb-1" id="revenueValue">$48.2K</div>
+                                <div class="text-xs text-slate-400">Ingreso Estimado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <a href="#" class="flex items-center gap-3 group mb-4 justify-center md:justify-start">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white text-xl">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">TechStartup.ai</span>
+                    </a>
+                    <p class="text-slate-500 text-sm max-w-md">
+                        Plataforma de IA empresarial que transforma negocios con automatización inteligente y análisis predictivo.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end gap-4">
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-500/20 transition-colors">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-500/20 transition-colors">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-primary-500/20 transition-colors">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                    <p class="text-slate-500 text-sm">© 2024 TechStartup.ai - Todos los derechos reservados</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-white/5 text-center">
+                <p class="text-slate-500 text-sm">Ejercicio 2 de 3 | Landing Page Futurista con Tailwind CSS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sistema de partículas futuristas
+        function createParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            
+            const particleCount = window.innerWidth < 768 ? 15 : 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Tamaño aleatorio
+                const size = Math.random() * 100 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posición aleatoria
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Opacidad aleatoria
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                // Animación
+                const duration = Math.random() * 30 + 20;
+                const delay = Math.random() * 5;
+                particle.style.animation = `particle-float ${duration}s linear ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Animaciones al hacer scroll
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+            
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Navbar scroll effect
+        function initNavbarScroll() {
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                // Efecto de transparencia
+                if (currentScroll > 100) {
+                    navbar.classList.add('bg-dark-900/95', 'shadow-xl');
+                } else {
+                    navbar.classList.remove('bg-dark-900/95', 'shadow-xl');
+                }
+                
+                // Esconder/mostrar navbar
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    navbar.style.transform = 'translateY(0)';
+                }
+                
+                lastScroll = currentScroll;
+            });
+        }
+        
+        // Demo interactiva
+        function initInteractiveDemo() {
+            const slider = document.getElementById('investmentSlider');
+            const investmentValue = document.getElementById('investmentValue');
+            const roiValue = document.getElementById('roiValue');
+            const roiPercentage = document.getElementById('roiPercentage');
+            const roiBar = document.getElementById('roiBar');
+            const usersValue = document.getElementById('usersValue');
+            const revenueValue = document.getElementById('revenueValue');
+            const timeValue = document.getElementById('timeValue');
+            
+            if (!slider) return;
+            
+            const calculateROI = (investment) => {
+                return Math.round(200 + (investment - 1000) / 49000 * 250);
+            };
+            
+            const calculateUsers = (investment) => {
+                return Math.round(1000 + (investment - 1000) / 49000 * 3000);
+            };
+            
+            const calculateRevenue = (investment) => {
+                return Math.round(investment * 3.2);
+            };
+            
+            const formatCurrency = (amount) => {
+                return new Intl.NumberFormat('es-ES', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            };
+            
+            const updateDemo = () => {
+                const investment = parseInt(slider.value);
+                const roi = calculateROI(investment);
+                const users = calculateUsers(investment);
+                const revenue = calculateRevenue(investment);
+                const timeSaved = (3.2 - (investment / 50000) * 1.5).toFixed(1);
+                
+                // Actualizar valores
+                investmentValue.textContent = formatCurrency(investment);
+                roiValue.textContent = `${roi}%`;
+                roiPercentage.textContent = `${roi}%`;
+                usersValue.textContent = users.toLocaleString();
+                revenueValue.textContent = formatCurrency(revenue);
+                timeValue.textContent = `${timeSaved}s`;
+                
+                // Actualizar barra de progreso
+                const progress = Math.min(100, (roi / 500) * 100);
+                roiBar.style.width = `${progress}%`;
+            };
+            
+            // Event listeners
+            slider.addEventListener('input', updateDemo);
+            slider.addEventListener('change', updateDemo);
+            
+            // Inicializar
+            updateDemo();
+            
+            // Efecto hover en slider
+            slider.addEventListener('mousedown', () => {
+                slider.style.cursor = 'grabbing';
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                slider.style.cursor = 'grab';
+            });
+            
+            slider.addEventListener('mouseenter', () => {
+                slider.style.cursor = 'grab';
+            });
+        }
+        
+        // Smooth scroll para enlaces internos
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.getElementById('navbar').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Inicializar todo cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initScrollAnimations();
+            initNavbarScroll();
+            initInteractiveDemo();
+            initSmoothScroll();
+            
+            // Menú móvil
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            if (menuBtn) {
+                menuBtn.addEventListener('click', () => {
+                    const navbar = document.getElementById('navbar');
+                    navbar.classList.toggle('mobile-open');
+                });
+            }
+            
+            // Optimización de rendimiento para scroll
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (!scrollTimeout) {
+                    scrollTimeout = setTimeout(() => {
+                        scrollTimeout = null;
+                        // Actualizaciones de rendimiento
+                    }, 100);
+                }
+            });
+            
+            // Efecto de carga progresiva
+            window.addEventListener('load', () => {
+                document.body.classList.add('loaded');
+            });
+        });
+        
+        // Redimensionar partículas al cambiar tamaño de ventana
+        window.addEventListener('resize', () => {
+            const particles = document.getElementById('particles');
+            if (particles) {
+                particles.innerHTML = '';
+                createParticles();
+            }
+        });
+        
+        // Console message
+        console.log(`
+        %c🚀 TechStartup - Landing Page Futurista
+        %cVersión 3.0 | Optimizada para móvil | Efectos de IA
+        
+        Características implementadas:
+        • Animaciones de scroll avanzadas
+        • Sistema de partículas dinámicas
+        • Dashboard en tiempo real
+        • Demo interactiva con IA
+        • Diseño 100% responsive
+        • Optimizaciones de rendimiento
+        
+        Tecnologías utilizadas:
+        • Tailwind CSS 3.0+
+        • Animaciones CSS personalizadas
+        • JavaScript moderno (ES6+)
+        • Efectos glass y gradientes
+        
+        ¡Disfruta del futuro del desarrollo web! ✨
+        `,
+        'font-size: 16px; font-weight: bold; color: #6366f1;',
+        'font-size: 12px; color: #94a3b8;'
+        );
+    </script>
+</body>
+</html>
